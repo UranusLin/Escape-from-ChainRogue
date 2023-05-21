@@ -1,4 +1,5 @@
 import { useComponentValue } from "@latticexyz/react";
+import CanvasComponent from "./components/CanvasComponent";
 import { useMUD } from "./MUDContext";
 
 export const App = () => {
@@ -24,6 +25,8 @@ export const App = () => {
       >
         Increment
       </button>
+
+      <CanvasComponent></CanvasComponent>
     </>
   );
 };

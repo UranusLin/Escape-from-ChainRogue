@@ -20,5 +20,37 @@ export function defineContractComponents(world: World) {
         }
       );
     })(),
+    Health: (() => {
+      const tableId = new TableId("", "Health");
+      return defineComponent(
+        world,
+        {
+          current: RecsType.Number,
+          max: RecsType.Number,
+        },
+        {
+          metadata: {
+            contractId: tableId.toHexString(),
+            tableId: tableId.toString(),
+          },
+        }
+      );
+    })(),
+    Position: (() => {
+      const tableId = new TableId("", "Position");
+      return defineComponent(
+        world,
+        {
+          x: RecsType.Number,
+          y: RecsType.Number,
+        },
+        {
+          metadata: {
+            contractId: tableId.toHexString(),
+            tableId: tableId.toString(),
+          },
+        }
+      );
+    })(),
   };
 }

@@ -5,7 +5,7 @@ import { useMUD } from "./MUDContext";
 export const App = () => {
   const {
     components: { Counter },
-    systemCalls: { increment },
+    systemCalls: { increment, spawn },
     network: { singletonEntity },
   } = useMUD();
 

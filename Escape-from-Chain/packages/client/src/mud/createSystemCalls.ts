@@ -8,6 +8,7 @@ export type SystemCalls = ReturnType<typeof createSystemCalls>;
 export function createSystemCalls(
   { worldSend, txReduced$, singletonEntity }: SetupNetworkResult,
   { Counter }: ClientComponents
+
 ) {
   const increment = async () => {
     const tx = await worldSend("increment", []);
@@ -15,7 +16,13 @@ export function createSystemCalls(
     return getComponentValue(Counter, singletonEntity);
   };
 
+  const spawn = (x: number, y: number, health: number) => {
+    // @ts-ignore
+    worldSend("spawn", [x, y, health]);
+  };
+
   return {
     increment,
+    spawn,
   };
 }

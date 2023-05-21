@@ -5,4 +5,6 @@ pragma solidity >=0.8.0;
 
 interface IIncrementSystem {
   function increment() external returns (uint32);
+
+  function spawn(int32 x, int32 y, int32 health) external;
 }

@@ -1,6 +1,6 @@
-# Escape-from-ChainRogue
+# Escape-from-Chain
 
-"Escape-from-ChainRogue" is a unique game that combines blockchain and role-playing elements. Players are immersed in a world where they fight solo, each failure leading to character's disappearance, leaving behind only the strongest.
+"Escape-from-Chain" is a unique game that combines blockchain and role-playing elements. Players are immersed in a world where they fight solo, each failure leading to character's disappearance, leaving behind only the strongest.
 
 ## Escape, and Rebirth
 
@@ -12,4 +12,4 @@ Only the resilient characters who finally win have the opportunity to forge thei
 
 ## Are You Ready to Take the Challenge?
 
-In "Escape-from-ChainRogue", we experience death and rebirth, challenge and growth, until we finally escape from the solo gaming world and become eternal. Are you ready to take the challenge and become eternal?
+In "Escape-from-Chain", we experience death and rebirth, challenge and growth, until we finally escape from the solo gaming world and become eternal. Are you ready to take the challenge and become eternal?

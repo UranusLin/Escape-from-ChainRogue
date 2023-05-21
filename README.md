@@ -1,8 +1,8 @@
-# Escape-from-ChainRogue
+# Escape-from-Chain
 
 ETHGlobal Autonomous Worlds Hackathon project
 
-Welcome to the Escape-from-ChainRogue repository! This is a unique game that combines blockchain and role-playing elements.
+Welcome to the Escape-from-Chain repository! This is a unique game that combines blockchain and role-playing elements.
 
 Please refer to the detailed introductions for more information:
 

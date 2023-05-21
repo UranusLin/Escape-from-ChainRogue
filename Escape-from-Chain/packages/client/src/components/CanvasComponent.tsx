@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import Player from "../classes/Player";
+import Enemy from "../classes/Enemy";
 import Projectile from "../classes/Projectile";
 
 const CanvasComponent: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  // Projectile
+  // Projectiles
   const [projectiles, setProjectiles] = useState<Projectile[]>([]);
+  // Enemies
+  const [enemies, setEnemies] = useState<Enemy[]>([]);
 
   useEffect(() => {
     let animationId: number;
@@ -42,40 +45,33 @@ const CanvasComponent: React.FC = () => {
             );
           }
         });
+
+        enemies.forEach((enemy, enemyIndex) => {
+          enemy.drawAndUpdate(canvas2dContext);
+          // Collision detection. Enemy & Player.
+          const dist = Math.hypot(player.x - enemy.x, player.y - enemy.y);
+          if (dist - enemy.radius - player.radius <= 0) {
+            cancelAnimationFrame(animationId);
+          }
+
+          projectiles.forEach((projectile, projectileIndex) => {
+            const dist = Math.hypot(
+              projectile.x - enemy.x,
+              projectile.y - enemy.y
+            );
+
+            // Collision detection. Enemy & Projectile.
+            if (dist - enemy.radius - projectile.radius <= 0) {
+              setEnemies((prevEnemies) =>
+                prevEnemies.filter((_, i) => i !== enemyIndex)
+              );
+              setProjectiles((prevProjectiles) =>
+                prevProjectiles.filter((_, i) => i !== projectileIndex)
+              );
+            }
+          });
+        });
       }
-      // enemies.forEach((enemy, enemyIndex) => {
-      //   enemy.drawAndUpdate();
-      //   // Collision detection. Enemy & Player.
-      //   const dist = Math.hypot(player.x - enemy.x, player.y - enemy.y);
-      //   if (dist - enemy.radius - player.radius <= 0) {
-      //     cancelAnimationFrame(animationId);
-      //   }
-
-      //   projectiles.forEach((projectile, projectileIndex) => {
-      //     const dist = Math.hypot(
-      //       projectile.x - enemy.x,
-      //       projectile.y - enemy.y
-      //     );
-
-      //     // Collision detection. Enemy & Projectile.
-      //     if (dist - enemy.radius - projectile.radius <= 0) {
-      //       if (enemy.radius - 10 >= 10) {
-      //         // GSAP smooth animation effect.
-      //         gsap.to(enemy, {
-      //           radius: enemy.radius - 10,
-      //         });
-      //         setTimeout(() => {
-      //           projectiles.splice(projectileIndex, 1);
-      //         }, 0);
-      //       } else {
-      //         setTimeout(() => {
-      //           enemies.splice(enemyIndex, 1);
-      //           projectiles.splice(projectileIndex, 1);
-      //         }, 0);
-      //       }
-      //     }
-      //   });
-      // });
     }
 
     // Start animation.
@@ -85,7 +81,7 @@ const CanvasComponent: React.FC = () => {
     return () => {
       cancelAnimationFrame(animationId);
     };
-  }, [projectiles]);
+  }, [projectiles, enemies]);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -118,6 +114,43 @@ const CanvasComponent: React.FC = () => {
     // Remove when dismount.
     return () => {
       document.removeEventListener("click", handleClick);
+    };
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const canvas = canvasRef.current;
+      if (canvas) {
+        // Make sure the radius is 4 ~ 30.
+        const radius = Math.random() * (30 - 4) + 4;
+        // Enemies need to spawn outside of screen.
+        let x: number;
+        let y: number;
+        if (Math.random() < 0.5) {
+          x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
+          y = Math.random() * canvas.height;
+        } else {
+          x = Math.random() * canvas.width;
+          y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
+        }
+        // TODO: Import from enemy assets.
+        const color = `red`;
+        const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x);
+        const velocity = {
+          x: Math.cos(angle),
+          y: Math.sin(angle),
+        };
+
+        setEnemies((prevEnemies) => [
+          ...prevEnemies,
+          new Enemy(x, y, radius, color, velocity),
+        ]);
+      }
+    }, 1000);
+
+    // Remove when dismount.
+    return () => {
+      clearInterval(interval);
     };
   }, []);
 

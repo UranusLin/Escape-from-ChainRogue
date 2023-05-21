@@ -1,4 +1,4 @@
-# Escape-from-Chain
+# Escape-from-ChainRogue
 
 ETHGlobal Autonomous Worlds Hackathon project
 

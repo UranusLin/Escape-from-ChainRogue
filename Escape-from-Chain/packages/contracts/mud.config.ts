@@ -7,12 +7,7 @@ export default mudConfig({
       keySchema: {},
       schema: "uint32",
     },
-    Ammo: {
-      schema: {
-        amount: "uint32",
-        damage: "uint32",
-      },
-    },
+    Ammo: { keySchema: {}, schema: "uint32" },
     Health: {
       schema: {
         current: "int32",

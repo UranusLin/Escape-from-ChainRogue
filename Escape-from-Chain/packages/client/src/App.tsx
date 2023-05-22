@@ -18,12 +18,13 @@ const Navbar = styled.div`
 
 export const App = () => {
   const {
-    components: { Counter },
-    systemCalls: { increment, spawn },
+    components: { Counter, Ammo },
+    systemCalls: { increment, decrease },
     network: { singletonEntity },
   } = useMUD();
 
   const counter = useComponentValue(Counter, singletonEntity);
+  const ammo = useComponentValue(Counter, singletonEntity);
 
   // Menu dialog state.
   const [dialogState, setDialogState] = useState<DialogState>(DialogState.MENU);
@@ -53,6 +54,19 @@ export const App = () => {
 
   return (
     <>
+      <div>
+        Counter: <span>{counter?.value ?? "??"}</span>
+      </div>
+      <button
+        type="button"
+        onClick={async (event) => {
+          event.preventDefault();
+          console.log("new counter value:", await increment());
+        }}
+      >
+        Increment
+      </button>
+
       {dialogState !== DialogState.START ? (
         <Menu
           dialogState={dialogState}

@@ -13,6 +13,7 @@ const Navbar = styled.div`
   top: 10px;
   left: 47%;
   color: white;
+  user-select: none;
 `;
 
 export const App = () => {
@@ -31,6 +32,7 @@ export const App = () => {
   };
   const setStartState = () => {
     setDialogState(DialogState.START);
+    setScore(0);
   };
   const setEndState = () => {
     setDialogState(DialogState.END);
@@ -51,7 +53,7 @@ export const App = () => {
 
   return (
     <>
-      {dialogState === DialogState.MENU ? (
+      {dialogState !== DialogState.START ? (
         <Menu
           dialogState={dialogState}
           onSetMenuState={setMenuState}

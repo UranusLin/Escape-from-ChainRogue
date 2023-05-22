@@ -5,6 +5,7 @@ import Enemy from "../classes/Enemy";
 import Projectile from "../classes/Projectile";
 
 import { gsap } from "gsap";
+import PropTypes from "prop-types";
 
 const CanvasComponent: React.FC<{
   onIncreaseScoreByHit: () => void;
@@ -101,7 +102,13 @@ const CanvasComponent: React.FC<{
     return () => {
       cancelAnimationFrame(animationIdRef.current);
     };
-  }, [projectiles, enemies]);
+  }, [
+    projectiles,
+    enemies,
+    onIncreaseScoreByHit,
+    onIncreaseScoreByDefeat,
+    onSetEndState,
+  ]);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -177,6 +184,12 @@ const CanvasComponent: React.FC<{
   }, [gameOver]);
 
   return <canvas ref={canvasRef} width={1024} height={768} />;
+};
+
+CanvasComponent.propTypes = {
+  onIncreaseScoreByHit: PropTypes.func.isRequired,
+  onIncreaseScoreByDefeat: PropTypes.func.isRequired,
+  onSetEndState: PropTypes.func.isRequired,
 };
 
 export default CanvasComponent;

@@ -1,6 +1,6 @@
-import { useState } from "react";
-
 import DialogState from "../dataType/DialogState";
+
+import PropTypes from "prop-types";
 
 import {
   Dialog,
@@ -22,7 +22,7 @@ const Menu: React.FC<{
 }> = ({ dialogState, onSetMenuState, onSetStartState }) => {
   return (
     <DialogContainer>
-      {dialogState === DialogState.MENU && (
+      {dialogState === DialogState.MENU ? (
         <Dialog open={true}>
           <DialogTitle>GAME MENU</DialogTitle>
           <DialogContent>
@@ -32,8 +32,7 @@ const Menu: React.FC<{
             <Button onClick={onSetStartState}>⚔️⚔️ Escape Now ⚔️⚔️</Button>
           </DialogActions>
         </Dialog>
-      )}
-      {dialogState === DialogState.END && (
+      ) : dialogState === DialogState.END ? (
         <Dialog open={true}>
           <DialogTitle>GAME OVER</DialogTitle>
           <DialogContent>
@@ -43,9 +42,15 @@ const Menu: React.FC<{
             <Button onClick={onSetMenuState}>🚀🚀 Retry 🚀🚀</Button>
           </DialogActions>
         </Dialog>
-      )}
+      ) : null}
     </DialogContainer>
   );
+};
+
+Menu.propTypes = {
+  dialogState: PropTypes.number.isRequired,
+  onSetMenuState: PropTypes.func.isRequired,
+  onSetStartState: PropTypes.func.isRequired,
 };
 
 export default Menu;

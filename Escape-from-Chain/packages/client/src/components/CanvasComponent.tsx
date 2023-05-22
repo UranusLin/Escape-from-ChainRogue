@@ -6,7 +6,10 @@ import Projectile from "../classes/Projectile";
 
 import { gsap } from "gsap";
 
-const CanvasComponent: React.FC = () => {
+const CanvasComponent: React.FC<{
+  onIncreaseScoreByHit: () => void;
+  onIncreaseScoreByDefeat: () => void;
+}> = ({ onIncreaseScoreByHit, onIncreaseScoreByDefeat }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // Looping the frame.
   const animationIdRef = useRef<number>(0);
@@ -35,7 +38,7 @@ const CanvasComponent: React.FC = () => {
 
         projectiles.forEach((projectile, projectileIndex) => {
           projectile.drawAndUpdate(canvas2dContext);
-          // Remove bullets that out of screen.
+          // Remove bullets that out of screen for performance.
           if (
             projectile.x + projectile.radius < 0 ||
             projectile.x - projectile.radius > canvas.width ||
@@ -73,6 +76,7 @@ const CanvasComponent: React.FC = () => {
                 setProjectiles((prevProjectiles) =>
                   prevProjectiles.filter((_, i) => i !== projectileIndex)
                 );
+                onIncreaseScoreByHit();
               } else {
                 setEnemies((prevEnemies) =>
                   prevEnemies.filter((_, i) => i !== enemyIndex)
@@ -80,6 +84,7 @@ const CanvasComponent: React.FC = () => {
                 setProjectiles((prevProjectiles) =>
                   prevProjectiles.filter((_, i) => i !== projectileIndex)
                 );
+                onIncreaseScoreByDefeat();
               }
             }
           });

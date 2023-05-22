@@ -50,7 +50,7 @@ src/
 - `curl -L https://foundry.paradigm.xyz | bash`
   https://book.getfoundry.sh/getting-started/installation
 
-  ### Reference:
+### Reference:
 
-  - https://github.com/latticexyz/react-todo
-  - https://github.com/D50000/Space-Drift-2D/tree/main
+- https://github.com/latticexyz/react-todo
+- https://github.com/D50000/Space-Drift-2D/tree/main

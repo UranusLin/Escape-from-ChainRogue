@@ -112,7 +112,6 @@ const CanvasComponent: React.FC<{
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
-      console.log("Boomm !!");
       const canvas = canvasRef.current;
       if (canvas) {
         const angle = Math.atan2(

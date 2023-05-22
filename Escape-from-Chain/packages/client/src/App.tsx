@@ -1,6 +1,6 @@
 import { useComponentValue } from "@latticexyz/react";
 import { useMUD } from "./MUDContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Menu from "./components/Menu";
 import CanvasComponent from "./components/CanvasComponent";
@@ -25,16 +25,20 @@ export const App = () => {
   const counter = useComponentValue(Counter, singletonEntity);
 
   // Menu dialog state.
-  const [dialogState, setDialogState] = useState<DialogState>(DialogState.Menu);
-  const setMenuDialog = () => {
-    setDialogState(DialogState.Menu);
+  const [dialogState, setDialogState] = useState<DialogState>(DialogState.MENU);
+  const setMenuState = () => {
+    setDialogState(DialogState.MENU);
   };
-  const setStartDialog = () => {
-    setDialogState(DialogState.Start);
+  const setStartState = () => {
+    setDialogState(DialogState.START);
   };
-  const setOpenEndDialog = () => {
-    setDialogState(DialogState.End);
+  const setEndState = () => {
+    setDialogState(DialogState.END);
   };
+  useEffect(() => {
+    // Set the initial dialog state to START when the component mounts.
+    setMenuState();
+  }, []);
 
   // Calculate score.
   const [score, setScore] = useState(0);
@@ -47,20 +51,25 @@ export const App = () => {
 
   return (
     <>
-      <Menu
-        dialogState={dialogState}
-        onSetMenuDialog={setMenuDialog}
-        onSetStartDialog={setStartDialog}
-        onSetOpenEndDialog={setOpenEndDialog}
-      ></Menu>
-      <Navbar>
-        <span>Score: </span>
-        <span>{score}</span>
-      </Navbar>
-      <CanvasComponent
-        onIncreaseScoreByHit={increaseScoreByHit}
-        onIncreaseScoreByDefeat={increaseScoreByDefeat}
-      ></CanvasComponent>
+      {dialogState === DialogState.MENU ? (
+        <Menu
+          dialogState={dialogState}
+          onSetMenuState={setMenuState}
+          onSetStartState={setStartState}
+        ></Menu>
+      ) : (
+        <>
+          <Navbar>
+            <span>Score: </span>
+            <span>{score}</span>
+          </Navbar>
+          <CanvasComponent
+            onIncreaseScoreByHit={increaseScoreByHit}
+            onIncreaseScoreByDefeat={increaseScoreByDefeat}
+            onSetEndState={setEndState}
+          ></CanvasComponent>
+        </>
+      )}
     </>
   );
 };

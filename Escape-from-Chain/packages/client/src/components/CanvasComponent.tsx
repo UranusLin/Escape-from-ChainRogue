@@ -9,7 +9,8 @@ import { gsap } from "gsap";
 const CanvasComponent: React.FC<{
   onIncreaseScoreByHit: () => void;
   onIncreaseScoreByDefeat: () => void;
-}> = ({ onIncreaseScoreByHit, onIncreaseScoreByDefeat }) => {
+  onSetEndState: () => void;
+}> = ({ onIncreaseScoreByHit, onIncreaseScoreByDefeat, onSetEndState }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // Looping the frame.
   const animationIdRef = useRef<number>(0);
@@ -58,6 +59,7 @@ const CanvasComponent: React.FC<{
           if (dist - enemy.radius - player.radius <= 0) {
             cancelAnimationFrame(animationIdRef.current);
             setGameOver(true);
+            onSetEndState();
           }
 
           projectiles.forEach((projectile, projectileIndex) => {

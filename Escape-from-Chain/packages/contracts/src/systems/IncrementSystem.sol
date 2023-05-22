@@ -2,7 +2,16 @@
 pragma solidity >=0.8.0;
 
 import { System } from "@latticexyz/world/src/System.sol";
-import { Counter } from "../codegen/Tables.sol";
+import {
+  Counter,
+  Position,
+  PositionTableId,
+  PositionData,
+  Health,
+  HealthData
+  } from "../codegen/Tables.sol";
+import { addressToEntity } from "../Utils.sol";
+import { getKeysWithValue } from "@latticexyz/world/src/modules/keyswithvalue/getKeysWithValue.sol";
 
 contract IncrementSystem is System {
   function increment() public returns (uint32) {

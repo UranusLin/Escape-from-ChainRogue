@@ -20,6 +20,21 @@ export function defineContractComponents(world: World) {
         }
       );
     })(),
+    Ammo: (() => {
+      const tableId = new TableId("", "Ammo");
+      return defineComponent(
+        world,
+        {
+          value: RecsType.Number,
+        },
+        {
+          metadata: {
+            contractId: tableId.toHexString(),
+            tableId: tableId.toString(),
+          },
+        }
+      );
+    })(),
     Health: (() => {
       const tableId = new TableId("", "Health");
       return defineComponent(

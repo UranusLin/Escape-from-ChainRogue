@@ -12,6 +12,8 @@
     "test": "tsc --noEmit"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
     "@ethersproject/providers": "^5.7.2",
     "@latticexyz/common": "2.0.0-alpha.1.177+5ec509dd",
     "@latticexyz/dev-tools": "2.0.0-alpha.1.177+5ec509dd",
@@ -22,14 +24,19 @@
     "@latticexyz/std-client": "2.0.0-alpha.1.177+5ec509dd",
     "@latticexyz/utils": "2.0.0-alpha.1.177+5ec509dd",
     "@latticexyz/world": "2.0.0-alpha.1.177+5ec509dd",
+    "@mui/material": "^5.13.1",
     "@wagmi/chains": "^0.2.22",
     "contracts": "workspace:*",
     "ethers": "^5.7.2",
     "gsap": "^3.11.5",
+    "prop-types": "^15.8.1",
+    "rc-dialog": "^9.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "styled-components": "6.0.0-rc.1"
   },
   "devDependencies": {
+    "@types/prop-types": "^15.7.5",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "@vitejs/plugin-react": "^3.1.0",

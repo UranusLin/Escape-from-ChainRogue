@@ -1,12 +1,13 @@
 import { mudConfig } from "@latticexyz/world/register";
 
 export default mudConfig({
-  // Block Chain version of DB.
+  // Block-Chain version of DB.
   tables: {
     Counter: {
       keySchema: {},
       schema: "uint32",
     },
+    Ammo: { keySchema: {}, schema: "uint32" },
     Health: {
       schema: {
         current: "int32",
@@ -17,7 +18,14 @@ export default mudConfig({
       schema: {
         x: "int32",
         y: "int32",
-      }
+      },
     },
   },
+  modules: [
+    {
+      name: "UniqueEntityModule",
+      root: true,
+      args: [],
+    },
+  ],
 });

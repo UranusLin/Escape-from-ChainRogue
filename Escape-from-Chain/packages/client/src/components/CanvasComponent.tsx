@@ -5,8 +5,13 @@ import Enemy from "../classes/Enemy";
 import Projectile from "../classes/Projectile";
 
 import { gsap } from "gsap";
+import PropTypes from "prop-types";
 
-const CanvasComponent: React.FC = () => {
+const CanvasComponent: React.FC<{
+  onIncreaseScoreByHit: () => void;
+  onIncreaseScoreByDefeat: () => void;
+  onSetEndState: () => void;
+}> = ({ onIncreaseScoreByHit, onIncreaseScoreByDefeat, onSetEndState }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // Looping the frame.
   const animationIdRef = useRef<number>(0);
@@ -35,7 +40,7 @@ const CanvasComponent: React.FC = () => {
 
         projectiles.forEach((projectile, projectileIndex) => {
           projectile.drawAndUpdate(canvas2dContext);
-          // Remove bullets that out of screen.
+          // Remove bullets that out of screen for performance.
           if (
             projectile.x + projectile.radius < 0 ||
             projectile.x - projectile.radius > canvas.width ||
@@ -55,6 +60,7 @@ const CanvasComponent: React.FC = () => {
           if (dist - enemy.radius - player.radius <= 0) {
             cancelAnimationFrame(animationIdRef.current);
             setGameOver(true);
+            onSetEndState();
           }
 
           projectiles.forEach((projectile, projectileIndex) => {
@@ -73,6 +79,7 @@ const CanvasComponent: React.FC = () => {
                 setProjectiles((prevProjectiles) =>
                   prevProjectiles.filter((_, i) => i !== projectileIndex)
                 );
+                onIncreaseScoreByHit();
               } else {
                 setEnemies((prevEnemies) =>
                   prevEnemies.filter((_, i) => i !== enemyIndex)
@@ -80,6 +87,7 @@ const CanvasComponent: React.FC = () => {
                 setProjectiles((prevProjectiles) =>
                   prevProjectiles.filter((_, i) => i !== projectileIndex)
                 );
+                onIncreaseScoreByDefeat();
               }
             }
           });
@@ -94,11 +102,16 @@ const CanvasComponent: React.FC = () => {
     return () => {
       cancelAnimationFrame(animationIdRef.current);
     };
-  }, [projectiles, enemies]);
+  }, [
+    projectiles,
+    enemies,
+    onIncreaseScoreByHit,
+    onIncreaseScoreByDefeat,
+    onSetEndState,
+  ]);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
-      console.log("Boomm !!");
       const canvas = canvasRef.current;
       if (canvas) {
         const angle = Math.atan2(
@@ -170,6 +183,12 @@ const CanvasComponent: React.FC = () => {
   }, [gameOver]);
 
   return <canvas ref={canvasRef} width={1024} height={768} />;
+};
+
+CanvasComponent.propTypes = {
+  onIncreaseScoreByHit: PropTypes.func.isRequired,
+  onIncreaseScoreByDefeat: PropTypes.func.isRequired,
+  onSetEndState: PropTypes.func.isRequired,
 };
 
 export default CanvasComponent;

@@ -21,6 +21,24 @@ contract IncrementSystem is System {
     return newValue;
   }
 
+  function decrease() public returns (uint32) {
+    uint32 counter = Counter.get();
+    uint32 newValue = counter - 1;
+    Counter.set(newValue);
+    return newValue;
+  }
+
+  // function getScore() public returns (uint32) {
+  //   uint32 score = Score.get(); 
+  //   return score;
+  // }
+
+  // function setScore() public returns (uint32) {
+  //   uint32 score = Score.get();
+  //   Score.set(score);
+  //   return score;
+  // }
+
   // generate player
   function spawn(int32 x, int32 y, int32 health) public {
     require(x != 0 || y != 0, "cannot spawn at 0 coord");

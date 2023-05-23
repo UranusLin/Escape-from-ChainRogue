@@ -11,7 +11,17 @@ const CanvasComponent: React.FC<{
   onIncreaseScoreByHit: () => void;
   onIncreaseScoreByDefeat: () => void;
   onSetEndState: () => void;
-}> = ({ onIncreaseScoreByHit, onIncreaseScoreByDefeat, onSetEndState }) => {
+  counter: any;
+  onIncrement: () => void;
+  onDecrease: () => void;
+}> = ({
+  onIncreaseScoreByHit,
+  onIncreaseScoreByDefeat,
+  onSetEndState,
+  counter,
+  onIncrement,
+  onDecrease,
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // Looping the frame.
   const animationIdRef = useRef<number>(0);
@@ -80,6 +90,8 @@ const CanvasComponent: React.FC<{
                   prevProjectiles.filter((_, i) => i !== projectileIndex)
                 );
                 onIncreaseScoreByHit();
+                onIncrement();
+                onIncrement();
               } else {
                 setEnemies((prevEnemies) =>
                   prevEnemies.filter((_, i) => i !== enemyIndex)
@@ -88,6 +100,9 @@ const CanvasComponent: React.FC<{
                   prevProjectiles.filter((_, i) => i !== projectileIndex)
                 );
                 onIncreaseScoreByDefeat();
+                onIncrement();
+                onIncrement();
+                onIncrement();
               }
             }
           });
@@ -108,12 +123,13 @@ const CanvasComponent: React.FC<{
     onIncreaseScoreByHit,
     onIncreaseScoreByDefeat,
     onSetEndState,
+    onIncrement,
   ]);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       const canvas = canvasRef.current;
-      if (canvas) {
+      if (canvas && counter) {
         const angle = Math.atan2(
           event.clientY - canvas.height / 2,
           event.clientX - canvas.width / 2
@@ -123,6 +139,7 @@ const CanvasComponent: React.FC<{
           y: Math.sin(angle) * 3,
         };
 
+        onDecrease();
         setProjectiles((prevProjectiles) => [
           ...prevProjectiles,
           new Projectile(
@@ -141,13 +158,13 @@ const CanvasComponent: React.FC<{
     return () => {
       document.removeEventListener("click", handleClick);
     };
-  }, []);
+  }, [counter, onDecrease]);
 
   useEffect(() => {
     if (!gameOver) {
       const interval = setInterval(() => {
         const canvas = canvasRef.current;
-        if (canvas) {
+        if (canvas && counter) {
           // Make sure the radius is 4 ~ 30.
           const radius = Math.random() * (30 - 4) + 4;
           // Enemies need to spawn outside of screen.
@@ -180,7 +197,7 @@ const CanvasComponent: React.FC<{
         clearInterval(interval);
       };
     }
-  }, [gameOver]);
+  }, [gameOver, counter]);
 
   return <canvas ref={canvasRef} width={1024} height={768} />;
 };

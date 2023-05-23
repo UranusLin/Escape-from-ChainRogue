@@ -15,18 +15,28 @@ const DialogContainer = styled.div`
   color: white;
 `;
 
+const StatusBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const Menu: React.FC<{
   dialogState: DialogState;
   onSetMenuState: () => void;
   onSetStartState: () => void;
-}> = ({ dialogState, onSetMenuState, onSetStartState }) => {
+  score: number;
+}> = ({ dialogState, onSetMenuState, onSetStartState, score }) => {
   return (
     <DialogContainer>
       {dialogState === DialogState.MENU ? (
         <Dialog open={true}>
           <DialogTitle>GAME MENU</DialogTitle>
           <DialogContent>
-            <p>000</p>
+            <p>Current Status</p>
+            <StatusBox>
+              <span>Score: 0</span>
+              <span>Ammo: 10</span>
+            </StatusBox>
           </DialogContent>
           <DialogActions>
             <Button onClick={onSetStartState}>⚔️⚔️ Escape Now ⚔️⚔️</Button>
@@ -36,7 +46,7 @@ const Menu: React.FC<{
         <Dialog open={true}>
           <DialogTitle>GAME OVER</DialogTitle>
           <DialogContent>
-            <p>222</p>
+            <p>Final Score: {score}</p>
           </DialogContent>
           <DialogActions>
             <Button onClick={onSetMenuState}>🚀🚀 Retry 🚀🚀</Button>

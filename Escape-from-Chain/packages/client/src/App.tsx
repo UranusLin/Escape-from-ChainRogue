@@ -8,10 +8,15 @@ import DialogState from "./dataType/DialogState";
 
 import styled from "styled-components";
 
+const RootContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const Navbar = styled.div`
   position: absolute;
   top: 10px;
-  left: 47%;
+  left: 45%;
   color: white;
   user-select: none;
 `;
@@ -24,7 +29,7 @@ export const App = () => {
   } = useMUD();
 
   const counter = useComponentValue(Counter, singletonEntity);
-  const ammo = useComponentValue(Counter, singletonEntity);
+  // const ammo = useComponentValue(Ammo, singletonEntity);
 
   // Menu dialog state.
   const [dialogState, setDialogState] = useState<DialogState>(DialogState.MENU);
@@ -53,39 +58,33 @@ export const App = () => {
   };
 
   return (
-    <>
-      <div>
-        Counter: <span>{counter?.value ?? "??"}</span>
-      </div>
-      <button
-        type="button"
-        onClick={async (event) => {
-          event.preventDefault();
-          console.log("new counter value:", await increment());
-        }}
-      >
-        Increment
-      </button>
-
+    <RootContainer>
       {dialogState !== DialogState.START ? (
         <Menu
           dialogState={dialogState}
           onSetMenuState={setMenuState}
           onSetStartState={setStartState}
+          score={score}
         ></Menu>
       ) : (
         <>
           <Navbar>
             <span>Score: </span>
             <span>{score}</span>
+            <> | </>
+            <span>Ammo: </span>
+            <span>{counter?.value ?? "--"}</span>
           </Navbar>
           <CanvasComponent
             onIncreaseScoreByHit={increaseScoreByHit}
             onIncreaseScoreByDefeat={increaseScoreByDefeat}
             onSetEndState={setEndState}
+            counter={counter}
+            onIncrement={increment}
+            onDecrease={decrease}
           ></CanvasComponent>
         </>
       )}
-    </>
+    </RootContainer>
   );
 };

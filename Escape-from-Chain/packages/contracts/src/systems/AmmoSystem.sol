@@ -10,11 +10,11 @@ import {
 } from "../codegen/Tables.sol";
 
 contract AmmoSystem is System {
-  function decrease() public returns (uint32) {
-    uint32 ammo = Ammo.get();
-    uint32 newValue = ammo - 1;
-    Ammo.set(newValue);
-    return newValue;
-  }
+  // function decrease() public returns (uint32) {
+  //   uint32 ammo = Ammo.get();
+  //   uint32 newValue = ammo ? ammo - 1 : 1;
+  //   Ammo.set(newValue);
+  //   return newValue;
+  // }
 
 }

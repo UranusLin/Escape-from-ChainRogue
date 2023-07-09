@@ -8,7 +8,7 @@ Leverage the power of MUD, a new framework designed for ambitious Ethereum appli
 
 ## Project: [Escape-from-Chain](https://ethglobal.com/showcase/escape-from-chain-w9npn)
 LOGO:  
-![](https://github.com/D50000/2023-EthTaipei-Hackathon/blob/main/assets/logo.jpg)  
+![](https://github.com/D50000/Ethglobal-2023-autonomous-Escape-from-ChainRogue/blob/main/assets/logo.jpg)  
 
 Idea & Framework:
 "Escape-from-Chain" is an innovative roguelike game built using a unique blend of technologies and approaches. The gameplay is powered by Multi-User Dungeon 2 **(MUD2)**, a popular engine for creating text-based adventure games, which provides the core mechanics and systems.
@@ -21,13 +21,13 @@ On the blockchain side, we integrated **Ethereum smart contracts** for creating 
 
 ## Gameplay
 Start Menu:  
-![](https://github.com/D50000/2023-EthTaipei-Hackathon/blob/main/assets/demo1.jpg)  
+![](https://github.com/D50000/Ethglobal-2023-autonomous-Escape-from-ChainRogue/blob/main/assets/demo1.jpg)  
   
 Playing:  
-![](https://github.com/D50000/2023-EthTaipei-Hackathon/blob/main/assets/demo2.jpg)  
+![](https://github.com/D50000/Ethglobal-2023-autonomous-Escape-from-ChainRogue/blob/main/assets/demo2.jpg)  
   
 End Menu:  
-![](https://github.com/D50000/2023-EthTaipei-Hackathon/blob/main/assets/demo3.jpg)  
+![](https://github.com/D50000/Ethglobal-2023-autonomous-Escape-from-ChainRogue/blob/main/assets/demo3.jpg)  
 
 ## Project Structure
 
